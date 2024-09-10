@@ -1,0 +1,35 @@
+:root {
+    --main-btn-color: #1D6154;
+    --second-btn-color: #ffffff;
+}
+
+.categories-menu {
+    margin-bottom: 3.125em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.625em;
+    justify-content: center;
+}
+
+.categories-menu__btn {
+    color: var(--main-btn-color);
+    background-color: var(--second-btn-color);
+    border-radius: 3.75em;
+    border: solid 1px var(--main-btn-color);
+    font-weight: bold;
+    font-family: "Syne";
+    padding: 0.563em;
+    min-width: 100px;
+    cursor: pointer;
+    transition: all ease-out 200ms;
+}
+
+.categories-menu__btn:hover {
+    background-color: var(--main-btn-color);
+    color: var(--second-btn-color);
+}
+
+.categories-menu__btn--selected {
+    background-color: var(--main-btn-color);
+    color: var(--second-btn-color);
+}

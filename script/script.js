@@ -28,9 +28,12 @@ async function init() {
     
     function createCategoriesMenu() {
         const conteneur = document.createElement("div")
+        conteneur.classList.add("categories-menu")
         
         // add the btn "Tous"
         const allBtn = document.createElement("button")
+        allBtn.classList.add("categories-menu__btn")
+        allBtn.classList.add("categories-menu__btn--selected")
         allBtn.innerText = "Tous"
         allBtn.addEventListener("click", () => {
             filterWorks(allBtn.innerText)
@@ -47,6 +50,7 @@ async function init() {
         // create a btn pour each categories
         categoriesNameSet.forEach(category => {
             const btn = document.createElement("button")
+            btn.classList.add("categories-menu__btn")
             
             btn.innerText = category
             
@@ -56,6 +60,16 @@ async function init() {
         })
         
         portfolio.appendChild(conteneur)
+        
+        // selected btn
+        const btnClass = document.querySelectorAll(".categories-menu__btn")
+        btnClass.forEach(clickedBtn => {
+            clickedBtn.addEventListener("click", () => {
+                const previousClicked = document.querySelector(".categories-menu__btn--selected")
+                previousClicked.classList.remove("categories-menu__btn--selected")
+                clickedBtn.classList.add("categories-menu__btn--selected")
+            })
+        })
     }
     
     function createGalleryConteneur() {
