@@ -1,6 +1,6 @@
 import { getWorks } from "./callApi.js"
 
-export async function worksPresentationHome() {
+async function worksPresentationHome() {
     const dataWorks = await getWorks()
     const portfolio = document.getElementById("portfolio")
     
@@ -83,3 +83,5 @@ export async function worksPresentationHome() {
     createGalleryConteneur()
     filterWorks("Tous")
 }
+
+worksPresentationHome()
