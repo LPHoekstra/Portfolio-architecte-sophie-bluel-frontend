@@ -19,7 +19,7 @@
     font-weight: bold;
     font-family: "Syne";
     padding: 0.563em;
-    min-width: 100px;
+    min-width: 6.25em;
     cursor: pointer;
     transition: all ease-out 200ms;
 }
