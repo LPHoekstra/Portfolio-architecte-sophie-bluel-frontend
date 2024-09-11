@@ -1,0 +1,22 @@
+.body-login {
+    min-height: 100vh;
+    position: relative;
+}
+
+.login {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+    flex: 1;
+    min-height: 100%;
+}
+
+.forgot-password {
+    text-decoration: underline;
+}
+
+.footer-login {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
