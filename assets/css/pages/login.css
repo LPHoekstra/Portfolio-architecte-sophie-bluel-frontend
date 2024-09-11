@@ -20,3 +20,16 @@
     left: 0;
     bottom: 0;
 }
+
+#error {
+    text-align: center;
+}
+
+.error-msg {
+    border: solid 1px rgb(184, 9, 6);
+    background-color: rgb(255, 195, 194);
+    display: inline;
+    padding: 10px;
+    margin: auto;
+    border-radius: 5px;
+}
