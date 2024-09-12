@@ -1,13 +1,19 @@
+/* base */
 @import url("./css/base/reset.css");
 @import url("./css/base/base.css");
 @import url("./css/base/typography.css");
 
+/* pages */
 @import url("./css/pages/home.css");
 @import url("./css/pages/login.css");
 
+/* components */
 @import url("./css/components/categories-menu.css");
 @import url("./css/components/form.css");
+@import url("./css/components/button.css");
 
+/* layout */
 @import url("./css/layout/footer.css");
 @import url("./css/layout/header.css");
 @import url("./css/layout/edition-mode.css");
+@import url("./css/layout/modal.css");
