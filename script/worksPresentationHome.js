@@ -1,6 +1,6 @@
 import { getWorks } from "./callApi.js"
 
-async function worksPresentationHome() {
+export async function worksPresentationHome() {
     const dataWorks = await getWorks()
     const portfolio = document.getElementById("portfolio")
     
@@ -79,9 +79,10 @@ async function worksPresentationHome() {
     }
 
     // create first the menu for filter, then the gallery conteneur, and show all the works by default
-    createCategoriesMenu()
+    const token = document.cookie.startsWith("token")
+    if (!token) {
+        createCategoriesMenu()
+    }
     createGalleryConteneur()
     filterWorks("Tous")
 }
-
-worksPresentationHome()

@@ -1,0 +1,36 @@
+.edition-conteneur {
+    background-color: black;
+    color: white;
+    width: 100%;
+    height: 3.625rem;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edition-conteneur img {
+    margin-right: 0.75rem;
+}
+
+.modify-conteneur {
+    text-align: center;
+    position: relative;
+}
+
+.modify-conteneur h2,
+.modify-conteneur__clickDiv {
+    display: inline-block;
+}
+
+.modify-conteneur__clickDiv {
+    position: absolute;
+    margin-left: 1.875rem;
+    top: 0.625em;
+    cursor: pointer;
+}
+
+.modify-conteneur__clickDiv img {
+    margin-right: 0.75rem;
+}
