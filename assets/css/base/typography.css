@@ -7,6 +7,12 @@ h1{
 	color: #B1663C
 }
 
+h1 > span {
+	font-family: 'Work Sans';
+	font-size:10px;
+	letter-spacing: 0.1em;
+}
+
 h2{
 	font-family: 'Syne';
 	font-weight: 700;

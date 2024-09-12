@@ -8,26 +8,5 @@
 @import url("./css/components/categories-menu.css");
 @import url("./css/components/form.css");
 
-
-h1 > span {
-	font-family: 'Work Sans';
-	font-size:10px;
-	letter-spacing: 0.1em;
-}
-
-nav ul {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-}
-
-nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
-}
-
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-}
-
+@import url("./css/layout/footer.css");
+@import url("./css/layout/header.css");
