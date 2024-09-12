@@ -1,4 +1,5 @@
 import { getWorks } from "./callApi.js"
+import { isConnected } from "./isConnected.js"
 
 export async function worksPresentationHome() {
     const dataWorks = await getWorks()
@@ -79,8 +80,8 @@ export async function worksPresentationHome() {
     }
 
     // create first the menu for filter, then the gallery conteneur, and show all the works by default
-    const token = document.cookie.startsWith("token")
-    if (!token) {
+    const connected = isConnected()
+    if (!connected) {
         createCategoriesMenu()
     }
     createGalleryConteneur()
