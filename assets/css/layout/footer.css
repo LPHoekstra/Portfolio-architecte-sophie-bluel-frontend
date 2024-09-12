@@ -1,0 +1,16 @@
+footer {
+	background-color: white;
+	width: 100%;
+	padding-top: 24px;
+	padding-bottom: 20px;
+}
+
+footer nav {
+	margin-right: 100px;
+    margin-left: 100px;
+}
+
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+}
