@@ -58,8 +58,3 @@ export const createModal = (dataWorks) => {
     aside.appendChild(wrapper)
     document.querySelector("body").appendChild(aside)
 }
-
-export const openModal = () => {
-    const modal = document.querySelector(".modal")
-    modal.removeAttribute("id")
-}

@@ -2,7 +2,7 @@ import { createCategoriesMenu, createGalleryConteneur, filterWorks } from "./wor
 import { logoutBtn } from "./logout.js";
 import { isConnected } from "./isConnected.js";
 import { getWorks } from "./callApi.js";
-import { createModal, openModal } from "./modal.js";
+import { createModal } from "./modal.js";
 
 const connected = isConnected()
 
@@ -46,6 +46,10 @@ const modifyBtn = () => {
 
     editConteneur.appendChild(editImg)
     editConteneur.appendChild(edit)
+    editConteneur.addEventListener("click", () => {
+        const modal = document.querySelector(".modal")
+        modal.removeAttribute("id")
+    })
 
     const title = document.querySelector("#portfolio h2")
 
@@ -64,8 +68,6 @@ if (connected) {
     logoutBtn()
     editionMode()
     createModal(dataWorks)
-
-    document.querySelector(".modify-conteneur__clickDiv").addEventListener("click", () => openModal())
 } else {
     createCategoriesMenu(dataWorks)
 }
