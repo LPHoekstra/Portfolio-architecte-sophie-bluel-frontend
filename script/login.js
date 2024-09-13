@@ -32,7 +32,8 @@ function setToken(data) {
     expirationDate.setTime(expirationDate.getTime() + (60 * 60 * 1000))
     const expires = `expires=${expirationDate.toUTCString()}`
 
-    document.cookie = `token=${data.token}; ${expires}; path=/; secure ; SameSite=Strict"`
+    const token = encodeURIComponent(data.token)
+    document.cookie = `token=${token}; ${expires}; path=/; secure ; SameSite=Strict"`
 }
 
 function setErrorMsg() {

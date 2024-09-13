@@ -1,3 +1,5 @@
+import { deleteWork } from "./callApi.js"
+
 export const createModal = (dataWorks) => {
     const aside = document.createElement("aside")
     aside.setAttribute("id", "modal-hidden")
@@ -36,9 +38,22 @@ export const createModal = (dataWorks) => {
         const img = document.createElement("img")
         const trash = document.createElement("img")
 
+        figure.id = "workId-" + work.id
+
         trash.src = "./assets/icons/trash.svg"
         trash.alt = "Supprimer la photo"
         trash.classList.add("modal-wrapper__trash")
+        trash.addEventListener("click", () => {
+            const parent = trash.parentElement
+            const id = parent.id
+            const splittedId = id.split("-")[1]
+
+            const response = deleteWork(splittedId)
+            if (response.ok) {
+                parent.remove()
+                console.log(`${id} supprimer avec succès`)
+            }
+        })
 
         img.src = work.imageUrl
         img.alt = work.title

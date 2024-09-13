@@ -1,7 +1,21 @@
+const url = "http://localhost:5678/api/"
+
+const getCookie = (name) => {
+    const cookies = document.cookie.split(";")
+
+    for (const cookie of cookies) {
+        const [key, value] = cookie.split("=")
+        if (key === name) {
+            return decodeURIComponent(value)
+        }
+    }
+    return null
+}
+
 // Get all works
 export async function getWorks() {
     try {
-        const response = await fetch("http://localhost:5678/api/works")
+        const response = await fetch(`${url}works`)
         if (!response.ok) {
             throw new Error("Erreur lors de la récupération des travaux")
         }
@@ -13,7 +27,7 @@ export async function getWorks() {
 }
 
 export async function login(formData) {
-    const response = await fetch("http://localhost:5678/api/users/login", {
+    const response = await fetch(`${url}users/login`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: formData
@@ -23,4 +37,30 @@ export async function login(formData) {
     }
 
     return response.json()
+}
+
+export const deleteWork = async (id) => {
+    try {
+        const token = getCookie("token")
+
+        if (token === null) {
+            throw new Error("Erreur lors de la récupération du token d'authentification")
+        }
+
+        const response = await fetch(`${url}works/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+        })
+        
+        if (!response.ok) {
+            throw new Error("Erreur lors de la suppression du projet")
+        }
+
+        return response
+    } catch (error) {
+        console.error(error)
+    }
 }
