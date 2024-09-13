@@ -2,7 +2,7 @@ import { createCategoriesMenu, createGalleryConteneur, filterWorks } from "./wor
 import { logoutBtn } from "./logout.js";
 import { isConnected } from "./isConnected.js";
 import { getWorks } from "./callApi.js";
-import { createModal } from "./modal.js";
+import { closeModal, createModal, handleEscapeKey } from "./modal.js";
 
 const connected = isConnected()
 
@@ -49,6 +49,7 @@ const modifyBtn = () => {
     editConteneur.addEventListener("click", () => {
         const modal = document.querySelector(".modal")
         modal.removeAttribute("id")
+        document.addEventListener("keydown", handleEscapeKey)
     })
 
     const title = document.querySelector("#portfolio h2")
