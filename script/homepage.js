@@ -2,7 +2,7 @@ import { createCategoriesMenu, createGalleryConteneur, filterWorks } from "./wor
 import { logoutBtn } from "./logout.js";
 import { isConnected } from "./isConnected.js";
 import { getWorks } from "./callApi.js";
-import { closeModal, createModal, handleEscapeKey } from "./modal.js";
+import { createModal, handleEscapeKey } from "./modal.js";
 
 const connected = isConnected()
 

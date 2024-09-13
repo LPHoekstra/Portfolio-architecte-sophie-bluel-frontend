@@ -28,21 +28,15 @@ export const createModal = (dataWorks) => {
         event.stopPropagation()
     })
 
-    // modal button
-    const btn = document.createElement("button")
-    btn.classList.add("btn")
-    btn.classList.add("form__btn") // temporary
-    btn.innerText = "Ajouter une photo"
-
-    const imgWrapper = modalMenuImgWrapper(dataWorks)
-
+    
     wrapper.appendChild(close)
     wrapper.appendChild(title)
-    wrapper.appendChild(imgWrapper)
-    wrapper.appendChild(btn)
-
+    
     aside.appendChild(wrapper)
     document.querySelector("body").appendChild(aside)
+
+    // create the img wrapper and btn
+    tabModalMenu(dataWorks)
 }
 
 export const closeModal = (modal) => {
@@ -57,9 +51,9 @@ export const handleEscapeKey = (event) => {
     }
 }
 
-const modalMenuImgWrapper = (dataWorks) => {
+const tabModalMenu = (dataWorks) => {
     const imgWrapper = document.createElement("div")
-    imgWrapper.classList.add("imgWrapper")
+    imgWrapper.classList.add("img-wrapper")
 
     dataWorks.forEach(work => {
         const figure = document.createElement("figure")
@@ -70,7 +64,7 @@ const modalMenuImgWrapper = (dataWorks) => {
 
         trash.src = "./assets/icons/trash.svg"
         trash.alt = "Supprimer la photo"
-        trash.classList.add("modal-wrapper__trash")
+        trash.classList.add("img-wrapper__trash")
         trash.addEventListener("click", () => {
             const parent = trash.parentElement
             const id = parent.id
@@ -85,7 +79,7 @@ const modalMenuImgWrapper = (dataWorks) => {
 
         img.src = work.imageUrl
         img.alt = work.title
-        img.classList.add("modal-wrapper__picture")
+        img.classList.add("img-wrapper__picture")
 
         figure.appendChild(trash)
         figure.appendChild(img)
@@ -93,5 +87,103 @@ const modalMenuImgWrapper = (dataWorks) => {
         imgWrapper.appendChild(figure)
     })
 
-    return imgWrapper
+    // modal button
+    const btn = document.createElement("button")
+    btn.classList.add("btn")
+    btn.innerText = "Ajouter une photo"
+    btn.addEventListener("click", () => tabAddPicture(dataWorks))
+
+    const modalWrapper = document.querySelector(".modal-wrapper")
+    modalWrapper.appendChild(imgWrapper)
+    modalWrapper.appendChild(btn)
+}
+
+const tabAddPicture = (dataWorks) => {
+    const modalWrapper = document.querySelector(".modal-wrapper")
+    const imgWrapper = document.querySelector(".img-wrapper")
+    const addPictureBtn = document.querySelector(".modal-wrapper .btn")
+    addPictureBtn.remove()
+    imgWrapper.remove()
+
+    // go back arrow
+    const goback = document.createElement("img")
+    goback.src = "./assets/icons/goback.svg"
+    goback.alt = "Revenir au menu précédent"
+    goback.classList.add("modal-wrapper__goback")
+    goback.addEventListener("click", () => {
+        form.remove()
+        tabModalMenu(dataWorks)
+    })
+
+    // change the title
+    const title = document.querySelector(".modal-wrapper h2")
+    title.innerText = "Ajout photo"
+
+    // create the form
+    const form = document.createElement("form")
+    form.classList.add("form")
+
+    const uploadWrapper = document.createElement("div")
+    uploadWrapper.classList.add("upload-wrapper")
+
+    const picture = document.createElement("img")
+    picture.src = "./assets/icons/picture.svg"
+    picture.alt = "Photo"
+
+    const validFile = document.createElement("p")
+    validFile.innerText = "jpg, png : 4mo max"
+
+    const addPictureLabel = document.createElement("label")
+    addPictureLabel.classList.add("upload-wrapper__label")
+    addPictureLabel.setAttribute("for", "picture")
+    addPictureLabel.innerText = "+ Ajouter photo"
+
+    const addPictureInput = document.createElement("input")
+    addPictureInput.type = "file"
+    addPictureInput.name = "picture"
+    addPictureInput.id = "picture"
+    addPictureInput.accept = "image/png, image/jpeg"
+
+    const titleFormLabel = document.createElement("label")
+    titleFormLabel.setAttribute("for", "title")
+    titleFormLabel.innerText = "Titre"
+    titleFormLabel.classList.add("form__label")
+
+    const titleFormInput = document.createElement("input")
+    titleFormInput.type = "text"
+    titleFormInput.name = "title"
+    titleFormInput.id = "title"
+    titleFormInput.classList.add("form__input-text")
+
+    const categoryFormLabel = document.createElement("label")
+    categoryFormLabel.setAttribute("for", "category")
+    categoryFormLabel.innerText = "Catégorie"
+    categoryFormLabel.classList.add("form__label")
+
+    const categoryFormInput = document.createElement("input")
+    categoryFormInput.type = "button" 
+    categoryFormInput.value = ""
+    categoryFormInput.name = "category"
+    categoryFormInput.id = "category"
+    categoryFormInput.classList.add("form__input-text")
+
+    const btn = document.createElement("button")
+    btn.type = "submit"
+    btn.innerText = "Valider"
+    btn.classList.add("btn")
+
+    uploadWrapper.appendChild(picture)
+    uploadWrapper.appendChild(addPictureLabel)
+    uploadWrapper.appendChild(addPictureInput)
+    uploadWrapper.appendChild(validFile)
+
+    form.appendChild(uploadWrapper)
+    form.appendChild(titleFormLabel)
+    form.appendChild(titleFormInput)
+    form.appendChild(categoryFormLabel)
+    form.appendChild(categoryFormInput)
+    form.appendChild(btn)
+
+    modalWrapper.appendChild(goback)
+    modalWrapper.appendChild(form)
 }
