@@ -1,4 +1,4 @@
-import { createCategoriesMenu, createGalleryConteneur, filterWorks } from "./worksPresentationHome.js";
+import { btnSortingCategory, createGalleryConteneur, filterWorks } from "./worksPresentationHome.js";
 import { logoutBtn } from "./logout.js";
 import { isConnected } from "./isConnected.js";
 import { getWorks } from "./callApi.js";
@@ -70,7 +70,7 @@ if (connected) {
     editionMode()
     createModal(dataWorks)
 } else {
-    createCategoriesMenu(dataWorks)
+    btnSortingCategory(dataWorks)
 }
 createGalleryConteneur()
 filterWorks("Tous", dataWorks)

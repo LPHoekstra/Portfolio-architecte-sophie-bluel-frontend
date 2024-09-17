@@ -22,7 +22,7 @@ export function filterWorks(category, dataWorks) {
     })
 }
 
-export function createCategoriesMenu(dataWorks) {
+export function btnSortingCategory(dataWorks) {
     const conteneur = document.createElement("div")
     conteneur.classList.add("categories-menu")
 
