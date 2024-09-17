@@ -1,4 +1,5 @@
-import { deleteWork } from "./callApi.js"
+import { deleteWorkAPI } from "./callApi.js"
+import { filterWorks } from "./worksPresentationHome.js"
 
 export const createModal = (dataWorks) => {
     const aside = document.createElement("aside")
@@ -28,10 +29,10 @@ export const createModal = (dataWorks) => {
         event.stopPropagation()
     })
 
-    
+
     wrapper.appendChild(close)
     wrapper.appendChild(title)
-    
+
     aside.appendChild(wrapper)
     document.querySelector("body").appendChild(aside)
 
@@ -52,6 +53,7 @@ export const handleEscapeKey = (event) => {
 }
 
 const tabModalMenu = (dataWorks) => {
+    const modalWrapper = document.querySelector(".modal-wrapper")
     const imgWrapper = document.createElement("div")
     imgWrapper.classList.add("img-wrapper")
 
@@ -65,15 +67,25 @@ const tabModalMenu = (dataWorks) => {
         trash.src = "./assets/icons/trash.svg"
         trash.alt = "Supprimer la photo"
         trash.classList.add("img-wrapper__trash")
-        trash.addEventListener("click", () => {
+
+        // delete work feature
+        trash.addEventListener("click", async () => {
             const parent = trash.parentElement
             const id = parent.id
             const splittedId = id.split("-")[1]
 
-            const response = deleteWork(splittedId)
+            const response = await deleteWorkAPI(splittedId)
             if (response.ok) {
                 parent.remove()
+                dataWorks = dataWorks.filter(work => work.id !== Number(splittedId))
+                filterWorks("Tous", dataWorks)
                 console.log(`${id} supprimer avec succès`)
+            } else {
+                const errorMsg = document.createElement("span")
+                errorMsg.innerText = error.message
+                errorMsg.classList.add("error-msg")
+                modalWrapper.prepend(errorMsg)
+                console.error(error)
             }
         })
 
@@ -87,13 +99,12 @@ const tabModalMenu = (dataWorks) => {
         imgWrapper.appendChild(figure)
     })
 
-    // modal button
+    // add work button
     const btn = document.createElement("button")
     btn.classList.add("btn")
     btn.innerText = "Ajouter une photo"
     btn.addEventListener("click", () => tabAddPicture(dataWorks))
 
-    const modalWrapper = document.querySelector(".modal-wrapper")
     modalWrapper.appendChild(imgWrapper)
     modalWrapper.appendChild(btn)
 }
@@ -160,8 +171,7 @@ const tabAddPicture = (dataWorks) => {
     categoryFormLabel.innerText = "Catégorie"
     categoryFormLabel.classList.add("form__label")
 
-    const categoryFormInput = document.createElement("input")
-    categoryFormInput.type = "button" 
+    const categoryFormInput = document.createElement("select")
     categoryFormInput.value = ""
     categoryFormInput.name = "category"
     categoryFormInput.id = "category"

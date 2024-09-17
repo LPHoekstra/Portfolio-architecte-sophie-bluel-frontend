@@ -6,9 +6,9 @@ import { createModal, handleEscapeKey } from "./modal.js";
 
 const connected = isConnected()
 
-const dataWorks = await getWorks()
+let dataWorks = await getWorks()
 
-// uptade home html for edition mode
+// update home html for edition mode
 const editionMode = () => {
     editModeHeader()
     modifyBtn()

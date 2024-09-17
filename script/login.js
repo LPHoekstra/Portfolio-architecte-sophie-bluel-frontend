@@ -23,7 +23,7 @@ form.addEventListener("submit", async event => {
     } catch (error) {
         console.error(error)
         
-        setErrorMsg()
+        setErrorMsg(error.message)
     }
 })
 
@@ -36,11 +36,11 @@ function setToken(data) {
     document.cookie = `token=${token}; ${expires}; path=/; secure ; SameSite=Strict"`
 }
 
-function setErrorMsg() {
+function setErrorMsg(message) {
     const errorDiv = document.getElementById("error")
 
     const errorMsg = document.createElement("span")
-    errorMsg.innerText = "Erreur dans l'identifiant ou le mot de passe"
+    errorMsg.innerText = message
     errorMsg.classList.add("error-msg")
 
     errorDiv.append(errorMsg)

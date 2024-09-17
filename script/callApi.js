@@ -39,7 +39,7 @@ export async function login(formData) {
     return response.json()
 }
 
-export const deleteWork = async (id) => {
+export const deleteWorkAPI = async (id) => {
     try {
         const token = getCookie("token")
 
@@ -51,16 +51,16 @@ export const deleteWork = async (id) => {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
             },
         })
         
-        if (!response.ok) {
-            throw new Error("Erreur lors de la suppression du projet")
+        if (response.ok) {
+            return {ok: true, message: "suppression réussi"}
         }
-
-        return response
+        
+        throw new Error("Erreur lors de la suppression du projet")
     } catch (error) {
         console.error(error)
+        return {ok: false, message: error.message}
     }
 }
