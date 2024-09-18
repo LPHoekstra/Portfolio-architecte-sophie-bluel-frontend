@@ -1,4 +1,4 @@
-import { login } from "./callApi.js";
+import { loginAPI } from "./callApi.js";
 
 const form = document.querySelector(".login form")
 
@@ -15,7 +15,7 @@ form.addEventListener("submit", async event => {
     const jsonData = JSON.stringify(formObject)
 
     try {
-        const data = await login(jsonData)
+        const data = await loginAPI(jsonData)
 
         setToken(data)
 

@@ -13,7 +13,7 @@ const getCookie = (name) => {
 }
 
 // Get all works
-export async function getWorks() {
+export async function getWorksAPI() {
     try {
         const response = await fetch(`${url}works`)
         if (!response.ok) {
@@ -26,7 +26,20 @@ export async function getWorks() {
     }
 }
 
-export async function login(formData) {
+export const getCategoriesAPI = async () => {
+    try {
+        const response = await fetch(`${url}categories`)
+        if (!response.ok) {
+            throw new Error("Erreur lors de la récupération des catégories")
+        }
+
+        return response.json()
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+export async function loginAPI(formData) {
     const response = await fetch(`${url}users/login`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},

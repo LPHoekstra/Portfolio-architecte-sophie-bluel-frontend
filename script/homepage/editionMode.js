@@ -1,15 +1,7 @@
-import { btnSortingCategory, createGalleryConteneur, filterWorks } from "./worksPresentationHome.js";
-import { logoutBtn } from "./logout.js";
-import { isConnected } from "./isConnected.js";
-import { getWorks } from "./callApi.js";
-import { createModal, handleEscapeKey } from "./modal.js";
-
-const connected = isConnected()
-
-let dataWorks = await getWorks()
+import { handleEscapeKey } from "./modal.js"
 
 // update home html for edition mode
-const editionMode = () => {
+export const editionMode = () => {
     editModeHeader()
     modifyBtn()
 }
@@ -64,13 +56,3 @@ const modifyBtn = () => {
 
     portfolio.prepend(mainConteneur)
 }
-
-if (connected) {
-    logoutBtn()
-    editionMode()
-    createModal(dataWorks)
-} else {
-    btnSortingCategory(dataWorks)
-}
-createGalleryConteneur()
-filterWorks("Tous", dataWorks)

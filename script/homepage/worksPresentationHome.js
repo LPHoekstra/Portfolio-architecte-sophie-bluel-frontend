@@ -1,5 +1,3 @@
-const portfolio = document.getElementById("portfolio")
-
 export function filterWorks(category, dataWorks) {
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
@@ -22,9 +20,9 @@ export function filterWorks(category, dataWorks) {
     })
 }
 
-export function btnSortingCategory(dataWorks) {
-    const conteneur = document.createElement("div")
-    conteneur.classList.add("categories-menu")
+export function btnFilterCategory(categories, dataWorks) {
+    const container = document.querySelector(".categories-menu")
+    container.removeAttribute("style")
 
     // add the btn "Tous"
     const allBtn = document.createElement("button")
@@ -34,28 +32,19 @@ export function btnSortingCategory(dataWorks) {
     allBtn.addEventListener("click", () => {
         filterWorks(allBtn.innerText, dataWorks)
     })
-    conteneur.appendChild(allBtn)
-
-    const categoriesNameSet = new Set()
-
-    // add all the uniques categories to the set
-    dataWorks.forEach(work => {
-        categoriesNameSet.add(work.category.name)
-    })
+    container.appendChild(allBtn)
 
     // create a btn for each categories
-    categoriesNameSet.forEach(category => {
+    categories.forEach(category => {
         const btn = document.createElement("button")
         btn.classList.add("categories-menu__btn")
 
-        btn.innerText = category
+        btn.innerText = category.name
 
-        btn.addEventListener("click", () => filterWorks(category, dataWorks))
+        btn.addEventListener("click", () => filterWorks(category.name, dataWorks))
 
-        conteneur.appendChild(btn)
+        container.appendChild(btn)
     })
-
-    portfolio.appendChild(conteneur)
 
     // selected btn
     const btnClass = document.querySelectorAll(".categories-menu__btn")
@@ -66,10 +55,4 @@ export function btnSortingCategory(dataWorks) {
             clickedBtn.classList.add("categories-menu__btn--selected")
         })
     })
-}
-
-export function createGalleryConteneur() {
-    const gallery = document.createElement("div")
-    gallery.classList.add("gallery")
-    portfolio.appendChild(gallery)
 }

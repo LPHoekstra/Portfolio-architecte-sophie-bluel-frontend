@@ -1,4 +1,5 @@
-import { deleteWorkAPI } from "./callApi.js"
+import { deleteWorkAPI } from "../callApi.js"
+import { categories } from "./homepage.js"
 import { filterWorks } from "./worksPresentationHome.js"
 
 export const createModal = (dataWorks) => {
@@ -29,7 +30,6 @@ export const createModal = (dataWorks) => {
         event.stopPropagation()
     })
 
-
     wrapper.appendChild(close)
     wrapper.appendChild(title)
 
@@ -40,7 +40,7 @@ export const createModal = (dataWorks) => {
     tabModalMenu(dataWorks)
 }
 
-export const closeModal = (modal) => {
+const closeModal = (modal) => {
     modal.setAttribute("id", "modal-hidden")
     document.removeEventListener("keydown", handleEscapeKey)
 }
@@ -109,6 +109,7 @@ const tabModalMenu = (dataWorks) => {
     modalWrapper.appendChild(btn)
 }
 
+// function for the tab "add picture"
 const tabAddPicture = (dataWorks) => {
     const modalWrapper = document.querySelector(".modal-wrapper")
     const imgWrapper = document.querySelector(".img-wrapper")
@@ -190,16 +191,10 @@ const tabAddPicture = (dataWorks) => {
     option.innerText = ""
     categoryFormSelect.appendChild(option)
 
-    const categoriesNameSet = new Set()
-
-    dataWorks.forEach(work => {
-        categoriesNameSet.add(work.category.name)
-    })
-
-    categoriesNameSet.forEach(category => {
+    categories.forEach(category => {
         const option = document.createElement("option")
-        option.value = category
-        option.innerText = category
+        option.value = category.name
+        option.innerText = category.name
 
         categoryFormSelect.appendChild(option)
     })
