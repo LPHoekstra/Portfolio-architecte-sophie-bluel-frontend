@@ -80,11 +80,11 @@
 
 .upload-wrapper {
     background-color: #E8F1F6;
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.25em;
+    height: 10.625em;
+    box-sizing: border-box;
 }
 
 .upload-wrapper__label {
@@ -118,12 +118,28 @@
     opacity: 1;
 }
 
-.upload-wrapper img {
+.upload-wrapper__photo-icon {
     height: 60px;
     width: 68px;
+    margin-top: 1.125em;
+}
+
+.upload-wrapper__photo {
+    max-height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 .upload-wrapper input {
     width: 0;
     height: 0;
+}
+
+.modal-form {
+    height: 100%;
+}
+
+.modal-form__not-valid {
+    background-color: #A7A7A7;
+    pointer-events: none;
 }

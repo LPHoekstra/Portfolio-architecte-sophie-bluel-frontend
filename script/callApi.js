@@ -77,3 +77,26 @@ export const deleteWorkAPI = async (id) => {
         return {ok: false, message: error.message}
     }
 }
+
+export const addWorkAPI = async (formData) => {
+    try {
+        const token = getCookie("token")
+
+        const response = fetch(`${url}works`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            },
+            body: formData
+        })
+
+        if (response.ok) {
+            console.log("Created")
+        }
+
+        throw new Error("Erreur lors de l'envoie")
+    } catch (error) {
+        console.error(error)
+    }
+}
