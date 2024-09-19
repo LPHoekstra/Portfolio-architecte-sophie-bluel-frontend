@@ -99,12 +99,18 @@ export const tabAddPicture = (dataWorks) => {
     form.addEventListener("submit", (event) => {
         event.preventDefault()
 
+        const isValid = validateForm(addPictureInput, titleFormInput, categoryFormSelect)
+        if (!isValid) {
+            console.error("Formulaire invalide")
+            return
+        }
+
+
+
         const formData = new FormData()
-        formData.append("id", 20)
         formData.append("title", titleFormInput.value)
-        formData.append("imageUrl", addPictureInput.files[0])
-        formData.append("categoryId", categoryFormSelect.value)
-        formData.append("userId", localStorage.getItem("userId"))
+        formData.append("image", addPictureInput.files[0])
+        formData.append("category", 2)
 
         addWorkAPI(formData)
     })
@@ -149,22 +155,28 @@ const validateForm = (addPictureInput, titleFormInput, categoryFormSelect) => {
             console.log("titre valide")
 
             if (categoryFormSelect.value !== "") {
+
                 if (validBtn.classList.contains("modal-form__not-valid")) {
                     validBtn.classList.remove("modal-form__not-valid")
                 }
                 console.log("btn clickable pour envoyer le form")
+
+                return true
             } else {
+
                 if (!validBtn.classList.contains("modal-form__not-valid")) {
                     validBtn.classList.add("modal-form__not-valid")
                 }
             }
         } else {
+
             if (!validBtn.classList.contains("modal-form__not-valid")) {
                 validBtn.classList.add("modal-form__not-valid")
             }
             console.log("titre non valide")
         }
     } else {
+
         if (!validBtn.classList.contains("modal-form__not-valid")) {
             validBtn.classList.add("modal-form__not-valid")
         }

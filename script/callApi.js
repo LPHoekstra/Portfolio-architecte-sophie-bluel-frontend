@@ -82,17 +82,17 @@ export const addWorkAPI = async (formData) => {
     try {
         const token = getCookie("token")
 
-        const response = fetch(`${url}works`, {
+        const response = await fetch(`${url}works`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
-                "Content-Type": "multipart/form-data"
             },
             body: formData
         })
 
         if (response.ok) {
             console.log("Created")
+            return
         }
 
         throw new Error("Erreur lors de l'envoie")
