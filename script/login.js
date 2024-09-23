@@ -1,4 +1,5 @@
 import { loginAPI } from "./callApi.js";
+import { setErrorMsg } from "./component.js";
 
 const form = document.querySelector(".login form")
 
@@ -22,8 +23,8 @@ form.addEventListener("submit", async event => {
         window.location.href = "./index.html"
     } catch (error) {
         console.error(error)
-        
-        setErrorMsg(error.message)
+
+        form.prepend(setErrorMsg(error.message))
     }
 })
 
@@ -36,14 +37,4 @@ function setToken(data) {
     document.cookie = `token=${token}; ${expires}; path=/; secure ; SameSite=Strict"`
 
     localStorage.setItem("userId", data.userId)
-}
-
-function setErrorMsg(message) {
-    const errorDiv = document.getElementById("error")
-
-    const errorMsg = document.createElement("span")
-    errorMsg.innerText = message
-    errorMsg.classList.add("error-msg")
-
-    errorDiv.append(errorMsg)
 }

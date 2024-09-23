@@ -82,7 +82,7 @@ export const tabModalMenu = (dataWorks) => {
                 console.log(`${id} supprimer avec succès`)
             } else {
                 const errorMsg = document.createElement("span")
-                errorMsg.innerText = error.message
+                errorMsg.innerText = response.message
                 errorMsg.classList.add("error-msg")
                 modalWrapper.prepend(errorMsg)
                 console.error(error)

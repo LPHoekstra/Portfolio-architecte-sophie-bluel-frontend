@@ -79,7 +79,6 @@ export const deleteWorkAPI = async (id) => {
 }
 
 export const addWorkAPI = async (formData) => {
-    try {
         const token = getCookie("token")
 
         const response = await fetch(`${url}works`, {
@@ -91,13 +90,8 @@ export const addWorkAPI = async (formData) => {
         })
 
         if (response.ok) {
-            console.log("Created")
-            return {ok: true}
+            return response.json()
         }
 
-        throw new Error("Erreur lors de l'envoie")
-    } catch (error) {
-        console.error(error)
-        return {ok: false}
-    }
+        throw new Error("Erreur lors de l'envoie du formulaire")
 }

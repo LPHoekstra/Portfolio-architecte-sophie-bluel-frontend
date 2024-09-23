@@ -1,4 +1,6 @@
-import { addWorkAPI } from "./../../callApi.js"
+import { setErrorMsg } from "../../component.js"
+import { filterWorks } from "../worksPresentationHome.js"
+import { addWorkAPI, getWorksAPI } from "./../../callApi.js"
 import { categories } from "./../homepage.js"
 import { tabModalMenu } from "./modal.js"
 
@@ -18,26 +20,27 @@ export const tabAddPicture = (dataWorks) => {
     if (clearForm) {
         clearForm.remove()
     }
-    const arrowExist = document.querySelector(".modal-wrapper__goback")
-    if (arrowExist) {
-        arrowExist.remove()
-    }
 
     // change the title
     const title = document.querySelector(".modal-wrapper h2")
     title.innerText = "Ajout photo"
 
     // go back arrow
-    const goback = document.createElement("img")
-    goback.src = "./assets/icons/goback.svg"
-    goback.alt = "Revenir au menu précédent"
-    goback.classList.add("modal-wrapper__goback")
-    goback.addEventListener("click", () => {
-        form.remove()
-        goback.remove()
-        title.innerText = "Galerie photo"
-        tabModalMenu(dataWorks)
-    })
+    const arrowExist = document.querySelector(".modal-wrapper__goback")
+    if (!arrowExist) {
+        const goback = document.createElement("img")
+        goback.src = "./assets/icons/goback.svg"
+        goback.alt = "Revenir au menu précédent"
+        goback.classList.add("modal-wrapper__goback")
+        goback.addEventListener("click", () => {
+            document.querySelector(".modal-form").remove()
+            goback.remove()
+            title.innerText = "Galerie photo"
+            tabModalMenu(dataWorks)
+        })
+
+        modalWrapper.appendChild(goback)
+    }
 
     // create the form
     const form = document.createElement("form")
@@ -105,30 +108,53 @@ export const tabAddPicture = (dataWorks) => {
     form.appendChild(categoryFormSelect)
     form.appendChild(btn)
 
-    modalWrapper.appendChild(goback)
     modalWrapper.appendChild(form)
 
     const addPictureInput = document.getElementById("picture")
-    form.addEventListener("change", () => validateForm(addPictureInput, titleFormInput, categoryFormSelect))
+    form.addEventListener("change", () => {
+        try {
+            validateForm(addPictureInput, titleFormInput, categoryFormSelect)
+        } catch (error) {
+            console.error(error)
+
+            btn.insertAdjacentElement("beforebegin", setErrorMsg(error.message))
+        }
+    })
+
     form.addEventListener("submit", async (event) => {
         event.preventDefault()
+        try {
+            const isValid = validateForm(addPictureInput, titleFormInput, categoryFormSelect)
+            if (!isValid) {
+                throw new Error("Formulaire invalide")
+            }
 
-        const isValid = validateForm(addPictureInput, titleFormInput, categoryFormSelect)
-        if (!isValid) {
-            console.error("Formulaire invalide")
-            return
-        }
+            const formData = new FormData()
+            formData.append("title", titleFormInput.value)
+            formData.append("image", addPictureInput.files[0])
+            formData.append("category", Number(categoryFormSelect.value))
 
-        const formData = new FormData()
-        formData.append("title", titleFormInput.value)
-        formData.append("image", addPictureInput.files[0])
-        formData.append("category", Number(categoryFormSelect.value))
+            const response = await addWorkAPI(formData)
 
-        const response = await addWorkAPI(formData)
-
-        if (response.ok) {
+            // empty the form
             tabAddPicture(dataWorks)
-            console.log('vidage du form')
+
+            // to update the UI without reloading the page
+            const formObject = {
+                id: response.id,
+                title: response.title,
+                imageUrl: response.imageUrl,
+                category: {
+                    categoryId: response.categoryId,
+                    name: categoryFormSelect.value,
+                }
+            }
+            dataWorks.push(formObject)
+            filterWorks("Tous", dataWorks)
+        } catch (error) {
+            console.error(error)
+
+            btn.insertAdjacentElement("beforebegin", setErrorMsg(error.message))
         }
     })
 }
@@ -165,65 +191,46 @@ const defaultPictureInput = (uploadWrapper) => {
 const validateForm = (addPictureInput, titleFormInput, categoryFormSelect) => {
     const validBtn = document.querySelector(".modal-form button")
 
-    if (updateImageDisplay(addPictureInput)) {
-        console.log("image valide")
-
-        if (titleFormInput.value !== "") {
-            console.log("titre valide")
-
-            if (categoryFormSelect.value !== "") {
-
-                if (validBtn.classList.contains("modal-form__not-valid")) {
-                    validBtn.classList.remove("modal-form__not-valid")
-                }
-                console.log("btn clickable pour envoyer le form")
-
-                return true
-            } else {
-
-                if (!validBtn.classList.contains("modal-form__not-valid")) {
-                    validBtn.classList.add("modal-form__not-valid")
-                }
-            }
+    if (addPictureInput.files[0]) {
+        updateImageDisplay(addPictureInput)
+        // error message removed if exist
+        const errorMsgExist = document.querySelector(".error-msg")
+        errorMsgExist ? errorMsgExist.remove() : null
+        
+        if (titleFormInput.value && categoryFormSelect.value !== "") {
+            validBtn.classList.remove("modal-form__not-valid")
+            
+            return true
         } else {
-
-            if (!validBtn.classList.contains("modal-form__not-valid")) {
-                validBtn.classList.add("modal-form__not-valid")
-            }
-            console.log("titre non valide")
-        }
-    } else {
-
-        if (!validBtn.classList.contains("modal-form__not-valid")) {
             validBtn.classList.add("modal-form__not-valid")
         }
-        console.log("image non valide")
+    } else {
+        validBtn.classList.add("modal-form__not-valid")
     }
 }
 
 const updateImageDisplay = (input) => {
     const file = input.files[0]
 
-    if (file) {
-        if (validFileType(file.type) && validFileSize(file.size)) {
-            const img = document.createElement("img")
-            img.src = window.URL.createObjectURL(file)
-            img.classList.add("upload-wrapper__photo")
+    if (validFileType(file.type) && validFileSize(file.size)) {
+        const img = document.createElement("img")
+        img.src = window.URL.createObjectURL(file)
+        img.classList.add("upload-wrapper__photo")
 
-            const wrapper = document.querySelector(".upload-wrapper")
-            wrapper.innerHTML = ""
+        const wrapper = document.querySelector(".upload-wrapper")
+        wrapper.innerHTML = ""
 
-            wrapper.appendChild(img)
-
-            return true
-        }
+        wrapper.appendChild(img)
     }
-
-    return false
 }
 
 const validFileType = (fileToValidate) => {
     const fileTypes = ["image/png", "image/jpeg"]
+
+    if (!fileTypes.includes(fileToValidate)) {
+        throw new Error("type de fichier invalide")
+    }
+
     return fileTypes.includes(fileToValidate)
 }
 
@@ -231,5 +238,6 @@ const validFileSize = (fileToValidate) => {
     if (fileToValidate < 4000000) {
         return true
     }
-    return false
+
+    throw new Error("taille du fichier trop volumineux")
 }
