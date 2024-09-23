@@ -2,8 +2,8 @@ import { btnFilterCategory, filterWorks } from "./worksPresentationHome.js";
 import { logoutBtn } from "../logout.js";
 import { isConnected } from "../isConnected.js";
 import { getCategoriesAPI, getWorksAPI } from "../callApi.js";
-import { createModal } from "./modal.js";
-import { editionMode } from "./editionMode.js";
+import { createModal } from "./modal/modal.js";
+import { editionMode } from "./modal/editionMode.js";
 
 const connected = isConnected()
 

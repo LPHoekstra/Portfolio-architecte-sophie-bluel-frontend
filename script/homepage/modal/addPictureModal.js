@@ -1,5 +1,5 @@
-import { addWorkAPI } from "../callApi.js"
-import { categories } from "./homepage.js"
+import { addWorkAPI } from "./../../callApi.js"
+import { categories } from "./../homepage.js"
 import { tabModalMenu } from "./modal.js"
 
 // function for the tab "add picture"
@@ -8,7 +8,20 @@ export const tabAddPicture = (dataWorks) => {
     const imgWrapper = document.querySelector(".img-wrapper")
     const addPictureBtn = document.querySelector(".modal-wrapper .btn")
     addPictureBtn.remove()
-    imgWrapper.remove()
+
+    if (imgWrapper) {
+        imgWrapper.remove()
+    }
+
+    // when tabAddPicture is rerender remove the form and goback arrow
+    const clearForm = document.querySelector(".modal-form")
+    if (clearForm) {
+        clearForm.remove()
+    }
+    const arrowExist = document.querySelector(".modal-wrapper__goback")
+    if (arrowExist) {
+        arrowExist.remove()
+    }
 
     // change the title
     const title = document.querySelector(".modal-wrapper h2")
@@ -21,6 +34,7 @@ export const tabAddPicture = (dataWorks) => {
     goback.classList.add("modal-wrapper__goback")
     goback.addEventListener("click", () => {
         form.remove()
+        goback.remove()
         title.innerText = "Galerie photo"
         tabModalMenu(dataWorks)
     })
@@ -71,7 +85,7 @@ export const tabAddPicture = (dataWorks) => {
 
     categories.forEach(category => {
         const option = document.createElement("option")
-        option.value = category.name
+        option.value = category.id
         option.innerText = category.name
 
         categoryFormSelect.appendChild(option)
@@ -96,7 +110,7 @@ export const tabAddPicture = (dataWorks) => {
 
     const addPictureInput = document.getElementById("picture")
     form.addEventListener("change", () => validateForm(addPictureInput, titleFormInput, categoryFormSelect))
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
         event.preventDefault()
 
         const isValid = validateForm(addPictureInput, titleFormInput, categoryFormSelect)
@@ -105,14 +119,17 @@ export const tabAddPicture = (dataWorks) => {
             return
         }
 
-
-
         const formData = new FormData()
         formData.append("title", titleFormInput.value)
         formData.append("image", addPictureInput.files[0])
-        formData.append("category", 2)
+        formData.append("category", Number(categoryFormSelect.value))
 
-        addWorkAPI(formData)
+        const response = await addWorkAPI(formData)
+
+        if (response.ok) {
+            tabAddPicture(dataWorks)
+            console.log('vidage du form')
+        }
     })
 }
 

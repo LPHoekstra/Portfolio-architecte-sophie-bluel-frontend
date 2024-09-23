@@ -92,11 +92,12 @@ export const addWorkAPI = async (formData) => {
 
         if (response.ok) {
             console.log("Created")
-            return
+            return {ok: true}
         }
 
         throw new Error("Erreur lors de l'envoie")
     } catch (error) {
         console.error(error)
+        return {ok: false}
     }
 }

@@ -1,6 +1,6 @@
-import { deleteWorkAPI } from "../callApi.js"
+import { deleteWorkAPI } from "../../callApi.js"
 import { tabAddPicture } from "./addPictureModal.js"
-import { filterWorks } from "./worksPresentationHome.js"
+import { filterWorks } from "../worksPresentationHome.js"
 
 export const createModal = (dataWorks) => {
     const aside = document.createElement("aside")
