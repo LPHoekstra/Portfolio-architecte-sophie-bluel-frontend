@@ -1,4 +1,4 @@
-export function filterWorks(category, dataWorks) {
+export const filterWorks = (category, dataWorks) => {
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
 
@@ -20,7 +20,7 @@ export function filterWorks(category, dataWorks) {
     })
 }
 
-export function btnFilterCategory(categories, dataWorks) {
+export const btnFilterCategory = (categories, dataWorks) => {
     const container = document.querySelector(".categories-menu")
     container.removeAttribute("style")
 

@@ -13,7 +13,7 @@ const getCookie = (name) => {
 }
 
 // Get all works
-export async function getWorksAPI() {
+export const getWorksAPI = async () => {
     try {
         const response = await fetch(`${url}works`)
         if (!response.ok) {

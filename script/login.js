@@ -31,7 +31,7 @@ form.addEventListener("submit", async event => {
     }
 })
 
-function setToken(data) {
+const setToken = (data) => {
     const expirationDate = new Date()
     expirationDate.setTime(expirationDate.getTime() + (60 * 60 * 1000))
     const expires = `expires=${expirationDate.toUTCString()}`
