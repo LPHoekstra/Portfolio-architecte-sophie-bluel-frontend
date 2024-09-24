@@ -21,15 +21,14 @@
     bottom: 0;
 }
 
-#error {
-    text-align: center;
+.login-form {
+    margin-top: 0.5em;
 }
 
-.error-msg {
-    border: solid 1px rgb(184, 9, 6);
-    background-color: rgb(255, 195, 194);
-    display: inline;
-    padding: 10px;
-    margin: auto;
-    border-radius: 5px;
+.login-form__label {
+    margin: 2.143em 0 0.5em 0;
+}
+
+.login-form__btn {
+    margin: 2.571em auto 2em auto;
 }

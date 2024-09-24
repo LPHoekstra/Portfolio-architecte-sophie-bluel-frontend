@@ -30,13 +30,12 @@
     <main>
         <section class="login">
             <h2>Log In</h2>
-            <form id="form" class="form">
-                <div id="error"></div>
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email">
-                <label for="password">Mot de passe</label>
-                <input type="password" name="password" id="password">
-                <button type="submit" class="form__btn">Se connecter</button>
+            <form id="form" class="login-form">
+                <label for="email" class="login-form__label">E-mail</label>
+                <input type="email" name="email" id="email" autocomplete="email" required>
+                <label for="password" class="login-form__label">Mot de passe</label>
+                <input type="password" name="password" id="password" autocomplete="current-password" required>
+                <button type="submit" class="login-form__btn btn">Se connecter</button>
             </form>
             <a href="#" class="forgot-password">Mot de passe oublié</a>
         </section>

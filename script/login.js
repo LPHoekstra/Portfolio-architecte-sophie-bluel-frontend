@@ -1,4 +1,5 @@
-import { login } from "./callApi.js";
+import { loginAPI } from "./callApi.js";
+import { setErrorMsg } from "./component.js";
 
 const form = document.querySelector(".login form")
 
@@ -15,32 +16,28 @@ form.addEventListener("submit", async event => {
     const jsonData = JSON.stringify(formObject)
 
     try {
-        const data = await login(jsonData)
+        const data = await loginAPI(jsonData)
+
+        if (!data.token) {
+            throw new Error("Token de connexion manquant")    
+        }
 
         setToken(data)
-
         window.location.href = "./index.html"
     } catch (error) {
         console.error(error)
-        
-        setErrorMsg()
+
+        form.prepend(setErrorMsg(error.message))
     }
 })
 
-function setToken(data) {
+const setToken = (data) => {
     const expirationDate = new Date()
     expirationDate.setTime(expirationDate.getTime() + (60 * 60 * 1000))
     const expires = `expires=${expirationDate.toUTCString()}`
 
-    document.cookie = `token=${data.token}; ${expires}; path=/; secure ; SameSite=Strict"`
-}
+    const token = encodeURIComponent(data.token)
+    document.cookie = `token=${token}; ${expires}; path=/; secure ; SameSite=Strict"`
 
-function setErrorMsg() {
-    const errorDiv = document.getElementById("error")
-
-    const errorMsg = document.createElement("span")
-    errorMsg.innerText = "Erreur dans l'identifiant ou le mot de passe"
-    errorMsg.classList.add("error-msg")
-
-    errorDiv.append(errorMsg)
+    localStorage.setItem("userId", data.userId)
 }

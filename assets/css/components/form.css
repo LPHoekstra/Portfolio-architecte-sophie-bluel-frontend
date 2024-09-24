@@ -1,56 +1,27 @@
-.form {
+form {
 	text-align: left;
-	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-.form input {
-	height: 50px;
-	font-size: 1.2em;
+form input,
+form select {
+	height: 3.643em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-}
-.form label {
-	margin: 2em 0 1em 0;
-}
-.form textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding-left: 1.143em;
+	padding-right: 1.143em;
 }
 
-.form__btn {
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px;
-	cursor: pointer;
-	position: relative;
-    border: none;
-    z-index: 1;
-}
-
-.form__btn::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-    border-radius: 60px;
-	background-color: #0E2F28;
+.form input[type=file] {
 	opacity: 0;
-	transition: opacity 200ms ease-out;
-	will-change: opacity;
-    z-index: -1;
 }
 
-.form__btn:hover::after {
-	opacity: 1;
+form label {
+	font-weight: 500;
+	font-size: 1em;
+}
+form textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
