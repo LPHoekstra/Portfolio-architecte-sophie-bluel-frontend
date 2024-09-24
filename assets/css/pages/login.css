@@ -20,3 +20,15 @@
     left: 0;
     bottom: 0;
 }
+
+.login-form {
+    margin-top: 0.5em;
+}
+
+.login-form__label {
+    margin: 2.143em 0 0.5em 0;
+}
+
+.login-form__btn {
+    margin: 2.571em auto 2em auto;
+}

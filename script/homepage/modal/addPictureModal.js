@@ -1,6 +1,6 @@
 import { setErrorMsg } from "../../component.js"
 import { filterWorks } from "../worksPresentationHome.js"
-import { addWorkAPI, getWorksAPI } from "./../../callApi.js"
+import { addWorkAPI } from "./../../callApi.js"
 import { categories } from "./../homepage.js"
 import { tabModalMenu } from "./modal.js"
 
@@ -52,13 +52,13 @@ export const tabAddPicture = (dataWorks) => {
     uploadWrapper.classList.add("upload-wrapper")
 
     // picture input
-    defaultPictureInput(uploadWrapper)
+    pictureInput(uploadWrapper)
 
     // title input
     const titleFormLabel = document.createElement("label")
     titleFormLabel.setAttribute("for", "title")
     titleFormLabel.innerText = "Titre"
-    titleFormLabel.classList.add("form__label")
+    titleFormLabel.classList.add("modal-form__label")
 
     const titleFormInput = document.createElement("input")
     titleFormInput.type = "text"
@@ -71,7 +71,7 @@ export const tabAddPicture = (dataWorks) => {
     const categoryFormLabel = document.createElement("label")
     categoryFormLabel.setAttribute("for", "category")
     categoryFormLabel.innerText = "Catégorie"
-    categoryFormLabel.classList.add("form__label")
+    categoryFormLabel.classList.add("modal-form__label")
 
     const categoryFormSelect = document.createElement("select")
     categoryFormSelect.value = ""
@@ -94,18 +94,25 @@ export const tabAddPicture = (dataWorks) => {
         categoryFormSelect.appendChild(option)
     })
 
+    // wrapper for title and category
+    const titleCategoryWrapper = document.createElement("div")
+    titleCategoryWrapper.classList.add("title-category-wrapper")
+
+    titleCategoryWrapper.appendChild(titleFormLabel)
+    titleCategoryWrapper.appendChild(titleFormInput)
+    titleCategoryWrapper.appendChild(categoryFormLabel)
+    titleCategoryWrapper.appendChild(categoryFormSelect)
+
     // btn
     const btn = document.createElement("button")
     btn.type = "submit"
     btn.innerText = "Valider"
     btn.classList.add("btn")
+    btn.classList.add("modal-wrapper__button")
     btn.classList.add("modal-form__not-valid")
 
     form.appendChild(uploadWrapper)
-    form.appendChild(titleFormLabel)
-    form.appendChild(titleFormInput)
-    form.appendChild(categoryFormLabel)
-    form.appendChild(categoryFormSelect)
+    form.appendChild(titleCategoryWrapper)
     form.appendChild(btn)
 
     modalWrapper.appendChild(form)
@@ -146,7 +153,6 @@ export const tabAddPicture = (dataWorks) => {
                 imageUrl: response.imageUrl,
                 category: {
                     categoryId: response.categoryId,
-                    name: categoryFormSelect.value,
                 }
             }
             dataWorks.push(formObject)
@@ -159,7 +165,7 @@ export const tabAddPicture = (dataWorks) => {
     })
 }
 
-const defaultPictureInput = (uploadWrapper) => {
+const pictureInput = (uploadWrapper) => {
     uploadWrapper.innerHTML = ""
 
     const picture = document.createElement("img")
@@ -174,6 +180,7 @@ const defaultPictureInput = (uploadWrapper) => {
     addPictureLabel.classList.add("upload-wrapper__label")
     addPictureLabel.setAttribute("for", "picture")
     addPictureLabel.innerText = "+ Ajouter photo"
+    addPictureLabel.ariaLabel = "Ajouter une photo"
 
     const addPictureInput = document.createElement("input")
     addPictureInput.type = "file"

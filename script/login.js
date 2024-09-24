@@ -18,8 +18,11 @@ form.addEventListener("submit", async event => {
     try {
         const data = await loginAPI(jsonData)
 
-        setToken(data)
+        if (!data.token) {
+            throw new Error("Token de connexion manquant")    
+        }
 
+        setToken(data)
         window.location.href = "./index.html"
     } catch (error) {
         console.error(error)

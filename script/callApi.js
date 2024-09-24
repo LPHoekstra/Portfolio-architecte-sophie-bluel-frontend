@@ -42,7 +42,7 @@ export const getCategoriesAPI = async () => {
 export async function loginAPI(formData) {
     const response = await fetch(`${url}users/login`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: formData
     })
     if (!response.ok) {
@@ -53,45 +53,44 @@ export async function loginAPI(formData) {
 }
 
 export const deleteWorkAPI = async (id) => {
-    try {
-        const token = getCookie("token")
+    const token = getCookie("token")
 
-        if (token === null) {
-            throw new Error("Erreur lors de la récupération du token d'authentification")
-        }
-
-        const response = await fetch(`${url}works/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-            },
-        })
-        
-        if (response.ok) {
-            return {ok: true, message: "suppression réussi"}
-        }
-        
-        throw new Error("Erreur lors de la suppression du projet")
-    } catch (error) {
-        console.error(error)
-        return {ok: false, message: error.message}
+    if (token === null) {
+        throw new Error("Erreur lors de la récupération du token d'authentification")
     }
+
+    const response = await fetch(`${url}works/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+    })
+
+    if (response.ok) {
+        return { ok: true, message: "suppression réussi" }
+    }
+
+    throw new Error("Erreur lors de la suppression du projet")
 }
 
 export const addWorkAPI = async (formData) => {
-        const token = getCookie("token")
+    const token = getCookie("token")
 
-        const response = await fetch(`${url}works`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-            },
-            body: formData
-        })
+    if (token === null) {
+        throw new Error("Erreur lors de la récupération du token d'authentification")
+    }
 
-        if (response.ok) {
-            return response.json()
-        }
+    const response = await fetch(`${url}works`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+        body: formData
+    })
 
-        throw new Error("Erreur lors de l'envoie du formulaire")
+    if (response.ok) {
+        return response.json()
+    }
+
+    throw new Error("Erreur lors de l'envoie du formulaire")
 }

@@ -41,10 +41,22 @@
 
 #contact {
 	width: 50%;
-	margin: auto;
+	margin: 0 auto 3.214em auto;
 	text-align: center;
 }
 
 #contact h2{
-	margin-bottom: 20px;
+	margin-bottom: 0.714em;
+}
+
+#contact p {
+	font-size: 1.143em;
+}
+
+.contact-form__label {
+	margin: 2.857em 0 0.5em 0;
+}
+
+.contact-form__btn {
+	margin: 2.857em auto 0 auto;
 }

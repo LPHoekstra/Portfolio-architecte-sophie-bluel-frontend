@@ -1,6 +1,7 @@
 import { deleteWorkAPI } from "../../callApi.js"
 import { tabAddPicture } from "./addPictureModal.js"
 import { filterWorks } from "../worksPresentationHome.js"
+import { setErrorMsg } from "../../component.js"
 
 export const createModal = (dataWorks) => {
     const aside = document.createElement("aside")
@@ -74,18 +75,16 @@ export const tabModalMenu = (dataWorks) => {
             const id = parent.id
             const splittedId = id.split("-")[1]
 
-            const response = await deleteWorkAPI(splittedId)
-            if (response.ok) {
-                parent.remove()
-                dataWorks = dataWorks.filter(work => work.id !== Number(splittedId))
-                filterWorks("Tous", dataWorks)
-                console.log(`${id} supprimer avec succès`)
-            } else {
-                const errorMsg = document.createElement("span")
-                errorMsg.innerText = response.message
-                errorMsg.classList.add("error-msg")
-                modalWrapper.prepend(errorMsg)
-                console.error(error)
+            try {
+                const response = await deleteWorkAPI(splittedId)
+
+                if (response.ok) {
+                    parent.remove()
+                    dataWorks = dataWorks.filter(work => work.id !== Number(splittedId))
+                    filterWorks("Tous", dataWorks)
+                }
+            } catch (error) {
+                btn.insertAdjacentElement("beforebegin", setErrorMsg(error.message))
             }
         })
 
@@ -102,6 +101,7 @@ export const tabModalMenu = (dataWorks) => {
     // add work button
     const btn = document.createElement("button")
     btn.classList.add("btn")
+    btn.classList.add("modal-wrapper__button")
     btn.innerText = "Ajouter une photo"
     btn.addEventListener("click", () => tabAddPicture(dataWorks))
 

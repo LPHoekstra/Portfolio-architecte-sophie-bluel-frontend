@@ -1,3 +1,7 @@
+/** 
+ * @param {"message of the error"} message 
+ * @returns A span element with the error message
+ */
 export const setErrorMsg = (message) => {
     const errorMsgExist = document.querySelector(".error-msg")
 
