@@ -1,9 +1,10 @@
 .img-wrapper {
     display: grid;
-    grid-template: repeat(3, 6.375em) / repeat(5, 1fr);
-    gap: 1.875em 0.625em;
+    grid-template: repeat(3, 7.286em) / repeat(5, 1fr);
+    gap: 2.071em 0.643em;
     height: 100%;
-    margin-top: 2.75em;
+    max-height: 30.357em;
+    margin-top: 3.286em;
     border-bottom: solid 1px #B3B3B3;
 }
 

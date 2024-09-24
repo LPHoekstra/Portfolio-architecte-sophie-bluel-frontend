@@ -78,7 +78,7 @@ export const tabAddPicture = (dataWorks) => {
     categoryFormSelect.name = "category"
     categoryFormSelect.id = "category"
     categoryFormSelect.setAttribute("required", true)
-    categoryFormSelect.classList.add("form__input-text")
+    categoryFormSelect.classList.add("modal-form__select")
 
     // category selection
     const option = document.createElement("option")

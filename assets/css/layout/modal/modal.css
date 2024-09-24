@@ -13,7 +13,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem;
 }
 
 #modal-hidden {
@@ -25,9 +24,9 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    height: 41.875em;
-    width: 39.375em;
-    padding: 3.75em 6.5em 2.75em 6.5em;
+    height: 47.857em;
+    width: 45em;
+    padding: 4.286em 7.5em 3.357em 7.5em;
     border-radius: 10px;
     box-sizing: border-box;
 }
@@ -42,18 +41,18 @@
 .modal-wrapper__goback {
     position: absolute;
     top: 1.875em;
-    left: 1.25em;
+    left: 2.143em;
     cursor: pointer;
 }
 
 .modal-wrapper__button {
-    margin: 2.25em auto 0 auto;
-    width: 14.875em;
+    margin: auto auto 0 auto;
+    width: 17em;
 }
 
 .modal-wrapper h2 {
     font-weight: 400;
-    font-size: 1.625em;
+    font-size: 1.857em;
     color: #000;
     text-align: center;
 }
