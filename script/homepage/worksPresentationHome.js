@@ -1,4 +1,6 @@
-export const filterWorks = (category, dataWorks) => {
+import { dataWorks } from "./homepage.js"
+
+export const filterWorks = (category) => {
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
 
@@ -20,7 +22,7 @@ export const filterWorks = (category, dataWorks) => {
     })
 }
 
-export const btnFilterCategory = (categories, dataWorks) => {
+export const btnFilterCategory = (categories) => {
     const container = document.querySelector(".categories-menu")
     container.removeAttribute("style")
 
@@ -30,7 +32,7 @@ export const btnFilterCategory = (categories, dataWorks) => {
     allBtn.classList.add("categories-menu__btn--selected")
     allBtn.innerText = "Tous"
     allBtn.addEventListener("click", () => {
-        filterWorks(allBtn.innerText, dataWorks)
+        filterWorks(allBtn.innerText)
     })
     container.appendChild(allBtn)
 
@@ -41,7 +43,7 @@ export const btnFilterCategory = (categories, dataWorks) => {
 
         btn.innerText = category.name
 
-        btn.addEventListener("click", () => filterWorks(category.name, dataWorks))
+        btn.addEventListener("click", () => filterWorks(category.name))
 
         container.appendChild(btn)
     })
