@@ -1,21 +1,23 @@
 import { btnFilterCategory, filterWorks } from "./worksPresentationHome.js";
 import { logoutBtn } from "../logout.js";
-import { isConnected } from "../isConnected.js";
+import { isConnected } from "../component.js";
 import { getCategoriesAPI, getWorksAPI } from "../callApi.js";
 import { createModal } from "./modal/modal.js";
 import { editionMode } from "./modal/editionMode.js";
 
-const connected = isConnected()
-
 export const categories = await getCategoriesAPI()
-let dataWorks = await getWorksAPI()
+export let dataWorks = await getWorksAPI()
 
-if (connected) {
-    logoutBtn()
-    editionMode()
-    createModal(dataWorks)
-} else {
-    btnFilterCategory(categories, dataWorks)
+export const changeDataWorks = (dataChange) => {
+    dataWorks = dataChange
 }
 
-filterWorks("Tous", dataWorks)
+if (isConnected()) {
+    logoutBtn()
+    editionMode()
+    createModal()
+} else {
+    btnFilterCategory(categories)
+}
+
+filterWorks("Tous")

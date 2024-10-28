@@ -2,8 +2,9 @@ import { deleteWorkAPI } from "../../callApi.js"
 import { tabAddPicture } from "./addPictureModal.js"
 import { filterWorks } from "../worksPresentationHome.js"
 import { setErrorMsg } from "../../component.js"
+import { changeDataWorks, dataWorks } from "../homepage.js"
 
-export const createModal = (dataWorks) => {
+export const createModal = () => {
     const aside = document.createElement("aside")
     aside.setAttribute("id", "modal-hidden")
     aside.classList.add("modal")
@@ -38,7 +39,7 @@ export const createModal = (dataWorks) => {
     document.querySelector("body").appendChild(aside)
 
     // create the img wrapper and btn
-    tabModalMenu(dataWorks)
+    tabModalMenu()
 }
 
 const closeModal = (modal) => {
@@ -53,7 +54,7 @@ export const handleEscapeKey = (event) => {
     }
 }
 
-export const tabModalMenu = (dataWorks) => {
+export const tabModalMenu = () => {
     const modalWrapper = document.querySelector(".modal-wrapper")
     const imgWrapper = document.createElement("div")
     imgWrapper.classList.add("img-wrapper")
@@ -80,8 +81,9 @@ export const tabModalMenu = (dataWorks) => {
 
                 if (response.ok) {
                     parent.remove()
-                    dataWorks = dataWorks.filter(work => work.id !== Number(splittedId))
-                    filterWorks("Tous", dataWorks)
+                    const filteredDataWorks = dataWorks.filter(work => work.id !== Number(splittedId))
+                    changeDataWorks(filteredDataWorks)
+                    filterWorks("Tous")
                 }
             } catch (error) {
                 btn.insertAdjacentElement("beforebegin", setErrorMsg(error.message))
@@ -103,7 +105,7 @@ export const tabModalMenu = (dataWorks) => {
     btn.classList.add("btn")
     btn.classList.add("modal-wrapper__button")
     btn.innerText = "Ajouter une photo"
-    btn.addEventListener("click", () => tabAddPicture(dataWorks))
+    btn.addEventListener("click", () => tabAddPicture())
 
     modalWrapper.appendChild(imgWrapper)
     modalWrapper.appendChild(btn)

@@ -1,11 +1,11 @@
 import { setErrorMsg } from "../../component.js"
 import { filterWorks } from "../worksPresentationHome.js"
 import { addWorkAPI } from "./../../callApi.js"
-import { categories } from "./../homepage.js"
+import { categories, changeDataWorks, dataWorks } from "./../homepage.js"
 import { tabModalMenu } from "./modal.js"
 
 // function for the tab "add picture"
-export const tabAddPicture = (dataWorks) => {
+export const tabAddPicture = () => {
     const modalWrapper = document.querySelector(".modal-wrapper")
     const imgWrapper = document.querySelector(".img-wrapper")
     const addPictureBtn = document.querySelector(".modal-wrapper .btn")
@@ -36,7 +36,7 @@ export const tabAddPicture = (dataWorks) => {
             document.querySelector(".modal-form").remove()
             goback.remove()
             title.innerText = "Galerie photo"
-            tabModalMenu(dataWorks)
+            tabModalMenu()
         })
 
         modalWrapper.appendChild(goback)
@@ -144,7 +144,7 @@ export const tabAddPicture = (dataWorks) => {
             const response = await addWorkAPI(formData)
 
             // empty the form
-            tabAddPicture(dataWorks)
+            tabAddPicture()
 
             // to update the UI without reloading the page
             const formObject = {
@@ -155,8 +155,10 @@ export const tabAddPicture = (dataWorks) => {
                     categoryId: response.categoryId,
                 }
             }
-            dataWorks.push(formObject)
-            filterWorks("Tous", dataWorks)
+
+            const dataWorksPushed = [...dataWorks, formObject]
+            changeDataWorks(dataWorksPushed)
+            filterWorks("Tous")
         } catch (error) {
             console.error(error)
 

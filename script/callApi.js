@@ -1,16 +1,6 @@
+import { getCookie } from "./component.js"
+
 const url = "http://localhost:5678/api/"
-
-const getCookie = (name) => {
-    const cookies = document.cookie.split(";")
-
-    for (const cookie of cookies) {
-        const [key, value] = cookie.split("=")
-        if (key === name) {
-            return decodeURIComponent(value)
-        }
-    }
-    return null
-}
 
 // Get all works
 export const getWorksAPI = async () => {
