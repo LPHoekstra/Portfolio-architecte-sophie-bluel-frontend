@@ -26,8 +26,11 @@ export const filterWorks = (category) => {
 }
 
 export const btnFilterCategory = (categories) => {
-    const container = document.querySelector(".categories-menu")
-    container.removeAttribute("style")
+    const container = document.createElement("div")
+    container.classList.add("categories-menu")
+    
+    const h2Portfolio = document.querySelector("#portfolio h2")
+    h2Portfolio.insertAdjacentElement("afterend", container)
 
     // add the btn "Tous"
     const allBtn = document.createElement("button")
