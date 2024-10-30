@@ -4,29 +4,21 @@ const url = "http://localhost:5678/api/"
 
 // Get all works
 export const getWorksAPI = async () => {
-    try {
         const response = await fetch(`${url}works`)
         if (!response.ok) {
-            throw new Error("Erreur lors de la récupération des travaux")
+            throw new Error("Erreur lors de la récupération des projets")
         }
 
         return response.json()
-    } catch (error) {
-        console.error(error)
-    }
 }
 
 export const getCategoriesAPI = async () => {
-    try {
         const response = await fetch(`${url}categories`)
         if (!response.ok) {
             throw new Error("Erreur lors de la récupération des catégories")
         }
 
         return response.json()
-    } catch (error) {
-        console.error(error)
-    }
 }
 
 export async function loginAPI(formData) {

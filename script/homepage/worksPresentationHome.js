@@ -4,7 +4,10 @@ export const filterWorks = (category) => {
     const gallery = document.querySelector(".gallery")
     gallery.innerHTML = ""
 
-    const filteredWorks = category === "Tous" ? dataWorks : dataWorks.filter(work => work.category.name === category)
+    const filteredWorks = category === "Tous" ?
+        dataWorks
+        :
+        dataWorks.filter(work => work.category.name === category)
 
     filteredWorks.forEach(work => {
         const figure = document.createElement("figure")
@@ -34,12 +37,15 @@ export const btnFilterCategory = (categories) => {
     allBtn.addEventListener("click", () => {
         filterWorks(allBtn.innerText)
     })
+    selectedBtnClass(allBtn)
+
     container.appendChild(allBtn)
 
     // create a btn for each categories
     categories.forEach(category => {
         const btn = document.createElement("button")
         btn.classList.add("categories-menu__btn")
+        selectedBtnClass(btn)
 
         btn.innerText = category.name
 
@@ -47,14 +53,13 @@ export const btnFilterCategory = (categories) => {
 
         container.appendChild(btn)
     })
+}
 
-    // selected btn
-    const btnClass = document.querySelectorAll(".categories-menu__btn")
-    btnClass.forEach(clickedBtn => {
-        clickedBtn.addEventListener("click", () => {
-            const previousClicked = document.querySelector(".categories-menu__btn--selected")
-            previousClicked.classList.remove("categories-menu__btn--selected")
-            clickedBtn.classList.add("categories-menu__btn--selected")
-        })
+// add an eventListener for a btn to apply the style when is clicked
+const selectedBtnClass = (btn) => {
+    btn.addEventListener("click", () => {
+        const previousClicked = document.querySelector(".categories-menu__btn--selected")
+        previousClicked.classList.remove("categories-menu__btn--selected")
+        btn.classList.add("categories-menu__btn--selected")
     })
 }
