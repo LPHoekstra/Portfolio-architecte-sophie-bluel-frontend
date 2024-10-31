@@ -17,6 +17,12 @@ nav li {
 	font-size: 1.2em;
 }
 
+.navbar__instagram {
+	height: 19px;
+	width: 19px;
+	cursor: pointer;
+}
+
 .navbar--selected {
 	font-weight: 600;
 }

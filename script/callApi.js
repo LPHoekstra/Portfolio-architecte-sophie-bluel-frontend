@@ -58,7 +58,7 @@ export const deleteWorkAPI = async (id) => {
 export const addWorkAPI = async (formData) => {
     const token = getCookie("token")
 
-    if (token === null) {
+    if (!token) {
         throw new Error("Erreur lors de la récupération du token d'authentification")
     }
 

@@ -6,9 +6,10 @@
 .login {
     text-align: center;
     width: 50%;
-    margin: auto;
     flex: 1;
     min-height: 100%;
+    margin: auto;
+    margin-top: 7.143em;
 }
 
 .forgot-password {

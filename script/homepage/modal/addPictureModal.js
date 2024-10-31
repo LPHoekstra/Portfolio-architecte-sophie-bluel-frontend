@@ -62,12 +62,17 @@ export const tabAddPicture = () => {
     categoryFormLabel.innerText = "Catégorie"
     categoryFormLabel.classList.add("modal-form__label")
 
+    const containerFormSelect = document.createElement("div")
+    containerFormSelect.classList.add("custom-select")
+
     const categoryFormSelect = document.createElement("select")
     categoryFormSelect.value = ""
     categoryFormSelect.name = "category"
     categoryFormSelect.id = "category"
     categoryFormSelect.setAttribute("required", true)
     categoryFormSelect.classList.add("modal-form__select")
+
+    containerFormSelect.appendChild(categoryFormSelect)
 
     // category selection
     const option = document.createElement("option")
@@ -90,7 +95,7 @@ export const tabAddPicture = () => {
     titleCategoryWrapper.appendChild(titleFormLabel)
     titleCategoryWrapper.appendChild(titleFormInput)
     titleCategoryWrapper.appendChild(categoryFormLabel)
-    titleCategoryWrapper.appendChild(categoryFormSelect)
+    titleCategoryWrapper.appendChild(containerFormSelect)
 
     // btn
     const btn = document.createElement("button")

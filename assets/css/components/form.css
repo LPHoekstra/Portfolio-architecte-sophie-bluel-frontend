@@ -13,6 +13,28 @@ form select {
 	padding-right: 1.143em;
 }
 
+.custom-select {
+	position: relative;
+}
+
+.custom-select select {
+	appearance: none;
+	width: 100%;
+}
+
+.custom-select::after {
+	content: "";
+	position: absolute;
+	height: 11px;
+	width: 11px;
+	right: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	background-image: url("./../../icons/arrow-down.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 .form input[type=file] {
 	opacity: 0;
 }
