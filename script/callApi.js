@@ -21,7 +21,7 @@ export const getCategoriesAPI = async () => {
         return response.json()
 }
 
-export async function loginAPI(formData) {
+export const loginAPI = async (formData) => {
     const response = await fetch(`${url}users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

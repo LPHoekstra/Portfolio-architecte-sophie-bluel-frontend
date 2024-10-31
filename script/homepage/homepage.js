@@ -16,11 +16,7 @@ try {
     dataWorks = fetchDataWorks
 } catch(error) {
     const portfolio = document.querySelector("#portfolio")
-    if (error.message === "Failed to fetch") {
-        portfolio.appendChild(setErrorMsg("Erreur lors de la récupération des données"))
-    } else {
-        portfolio.appendChild(setErrorMsg(error))
-    }
+    portfolio.appendChild(setErrorMsg(error.message))
 
     console.error(error)
 }

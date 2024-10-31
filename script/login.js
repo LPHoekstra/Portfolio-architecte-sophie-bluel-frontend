@@ -38,6 +38,4 @@ const setToken = (data) => {
 
     const token = encodeURIComponent(data.token)
     document.cookie = `token=${token}; ${expires}; path=/; secure ; SameSite=Strict"`
-
-    localStorage.setItem("userId", data.userId)
 }
