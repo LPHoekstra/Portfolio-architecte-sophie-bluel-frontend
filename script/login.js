@@ -34,8 +34,7 @@ form.addEventListener("submit", async event => {
 const setToken = (data) => {
     const expirationDate = new Date()
     expirationDate.setTime(expirationDate.getTime() + (60 * 60 * 1000))
-    const expires = `expires=${expirationDate.toUTCString()}`
 
     const token = encodeURIComponent(data.token)
-    document.cookie = `token=${token}; ${expires}; path=/; secure ; SameSite=Strict"`
+    document.cookie = `token=${token}; expires=${expirationDate.toUTCString()}; path=/; secure ; SameSite=Strict"`
 }

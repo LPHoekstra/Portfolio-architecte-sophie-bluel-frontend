@@ -7,23 +7,12 @@ import { tabModalMenu } from "./modal.js"
 // function for the tab "add picture"
 export const tabAddPicture = () => {
     const modalWrapper = document.querySelector(".modal-wrapper")
-    const imgWrapper = document.querySelector(".img-wrapper")
-    const addPictureBtn = document.querySelector(".modal-wrapper .btn")
-    addPictureBtn.remove()
 
-    if (imgWrapper) {
-        imgWrapper.remove()
-    }
-
-    // when tabAddPicture is rerender remove the form and goback arrow
+    // when tabAddPicture is rerender remove the form
     const clearForm = document.querySelector(".modal-form")
     if (clearForm) {
         clearForm.remove()
     }
-
-    // change the title
-    const title = document.querySelector(".modal-wrapper h2")
-    title.innerText = "Ajout photo"
 
     // go back arrow
     const arrowExist = document.querySelector(".modal-wrapper__goback")
@@ -35,7 +24,7 @@ export const tabAddPicture = () => {
         goback.addEventListener("click", () => {
             document.querySelector(".modal-form").remove()
             goback.remove()
-            title.innerText = "Galerie photo"
+            document.querySelector(".modal-wrapper h2").innerText = "Galerie photo"
             tabModalMenu()
         })
 
@@ -131,8 +120,7 @@ export const tabAddPicture = () => {
     form.addEventListener("submit", async (event) => {
         event.preventDefault()
         try {
-            const isValid = validateForm(addPictureInput, titleFormInput, categoryFormSelect)
-            if (!isValid) {
+            if (!validateForm(addPictureInput, titleFormInput, categoryFormSelect)) {
                 throw new Error("Formulaire invalide")
             }
 
@@ -236,17 +224,17 @@ const updateImageDisplay = (input) => {
 const validFileType = (fileToValidate) => {
     const fileTypes = ["image/png", "image/jpeg"]
 
-    if (!fileTypes.includes(fileToValidate)) {
-        throw new Error("type de fichier invalide")
+    if (fileTypes.includes(fileToValidate)) {
+        return true
     }
-
-    return fileTypes.includes(fileToValidate)
+    
+    throw new Error("type de fichier invalide")
 }
 
 const validFileSize = (fileToValidate) => {
     if (fileToValidate < 4000000) {
         return true
     }
-
+    
     throw new Error("taille du fichier trop volumineux")
 }
