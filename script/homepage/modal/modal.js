@@ -105,7 +105,12 @@ export const tabModalMenu = () => {
     btn.classList.add("btn")
     btn.classList.add("modal-wrapper__button")
     btn.innerText = "Ajouter une photo"
-    btn.addEventListener("click", () => tabAddPicture())
+    btn.addEventListener("click", () => {
+        imgWrapper.remove()
+        btn.remove()
+        document.querySelector(".modal-wrapper h2").innerText = "Ajout photo"
+        tabAddPicture()
+    })
 
     modalWrapper.appendChild(imgWrapper)
     modalWrapper.appendChild(btn)

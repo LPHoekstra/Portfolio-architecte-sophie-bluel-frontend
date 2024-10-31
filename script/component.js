@@ -5,17 +5,20 @@
 export const setErrorMsg = (message) => {
     const errorMsgExist = document.querySelector(".error-msg")
 
-    if (!errorMsgExist) {
-        const errorMsg = document.createElement("span")
-        errorMsg.innerText = message
-        errorMsg.classList.add("error-msg")
+    const errorText = message === "Failed to fetch"
+        ? "Erreur lors de la récupération des données"
+        : message
 
-        return errorMsg
-    } else {
-        errorMsgExist.innerText = message
+    if (errorMsgExist) {
+        errorMsgExist.innerText = errorText
+        return errorMsgExist
     }
 
-    return errorMsgExist
+    const errorMsg = document.createElement("span")
+    errorMsg.classList.add("error-msg")
+    errorMsg.innerText = errorText
+
+    return errorMsg
 }
 
 export const getCookie = (name) => {
